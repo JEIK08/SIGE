@@ -1,22 +1,49 @@
 <div class="login-page" [@routerTransition]>
-    <div class="row justify-content-md-center">
-        <div class="col-md-4">
-            <img src="assets/images/logo.png" width="150px" class="user-avatar" />
-            <h1>SB Admin BS4 Angular7</h1>
-            <form role="form">
-                <div class="form-content">
-                    <div class="form-group">
-                        <input type="text" ng-model="name" class="form-control input-underline input-lg" id="" placeholder="{{ 'Email' | translate }}">
-                    </div>
+  <div class="row justify-content-md-center">
+    <div class="col-md-6 col-xs-12">
+      <div class="img">
+        <img src="assets/images/logo.png" width="300px" class="user-avatar" />
+      </div>
+      <div class="container">
+        <h1>Bienvenido!</h1>
+        <form role="form" (ngSubmit)="onLoggedin()">
+          <div class="form-content">
+            <div class="form-group">
+              <input
+                type="text"
+                id="correo"
+                [(ngModel)]="user.correo"
+                name="correo"
+                class="form-control input-underline input-lg"
+                placeholder="{{ 'Email' | translate }}"
+                required
+              />
+            </div>
 
-                    <div class="form-group">
-                        <input type="password" class="form-control input-underline input-lg" id="" placeholder="{{ 'Password' | translate }}">
-                    </div>
-                </div>
-                <a class="btn rounded-btn" [routerLink]="['/dashboard']" (click)="onLoggedin()">{{ 'Log in' | translate }}</a>
-                &nbsp;
-                <a class="btn rounded-btn" [routerLink]="['/signup']">{{ 'Register' | translate }}</a>
-            </form>
-        </div>
+            <div class="form-group">
+              <input
+                type="password"
+                id="pass"
+                name="pass"
+                [(ngModel)]="user.pass"
+                class="form-control input-underline input-lg"
+                placeholder="{{ 'Password' | translate }}"
+                required
+              />
+            </div>
+          </div>
+
+          <div class="buttonA">
+            <button type="submit" class="btn btn-dark">{{ 'Log in' | translate }}</button>
+          </div>
+
+          <div class="buttonB">
+            <a class="btn btn-link" [routerLink]="['/signup']">{{ '¿Olvidó la contraseña?' | translate }}</a>
+          </div>
+
+          &nbsp;
+        </form>
+      </div>
     </div>
+  </div>
 </div>

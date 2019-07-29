@@ -14,22 +14,23 @@ export class DashboardComponent implements OnInit {
     constructor() {
         this.sliders.push(
             {
-                imagePath: 'assets/images/slider1.jpg',
-                label: 'First slide label',
+                imagePath: 'assets/images/slider1.png',
+                label: 'Gestiona tus recursos',
                 text:
-                    'Nulla vitae elit libero, a pharetra augue mollis interdum.'
+                    // tslint:disable-next-line:max-line-length
+                    'Lleva el control de todos los recursos de tu campaña. Administra tu presupuesto, visualiza el comportamiento de tus variables.'
             },
             {
-                imagePath: 'assets/images/slider2.jpg',
-                label: 'Second slide label',
-                text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.'
-            },
-            {
+                imagePath: 'assets/images/slider2.png',
+                label: 'Optimiza tu esfuerzo',
+                text: 'Todo lo puedes hacer con tan solo clicks.'
+            }
+            /*, {
                 imagePath: 'assets/images/slider3.jpg',
                 label: 'Third slide label',
                 text:
                     'Praesent commodo cursus magna, vel scelerisque nisl consectetur.'
-            }
+            }*/
         );
 
         this.alerts.push(
@@ -52,7 +53,7 @@ export class DashboardComponent implements OnInit {
         );
     }
 
-    ngOnInit() {}
+    ngOnInit() { }
 
     public closeAlert(alert: any) {
         const index: number = this.alerts.indexOf(alert);

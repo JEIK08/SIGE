@@ -1,0 +1,8 @@
+<div [@routerTransition]>
+  <app-page-header [heading]="'Gestión de gastos'" [icon]="'fa-bar-chart-o'"></app-page-header>
+  <div>
+    <app-coordinador-gastos-informacion (costCreated)="onCostCreated($event)"></app-coordinador-gastos-informacion>
+    <app-coordinador-gastos-consultar #coordinadorGastosConsultar></app-coordinador-gastos-consultar>
+  </div>
+</div>
+F

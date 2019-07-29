@@ -1,4 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-stat',
@@ -11,9 +12,16 @@ export class StatComponent implements OnInit {
     @Input() count: number;
     @Input() label: string;
     @Input() data: number;
+    @Input() pageRedirect: string;
     @Output() event: EventEmitter<any> = new EventEmitter();
 
-    constructor() {}
+    constructor(
+        private router: Router
+    ) { }
 
-    ngOnInit() {}
+    ngOnInit() { }
+
+    redirect() {
+        this.router.navigateByUrl(this.pageRedirect);
+    }
 }

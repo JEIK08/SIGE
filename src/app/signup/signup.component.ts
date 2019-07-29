@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { routerTransition } from '../router.animations';
+import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
 
 @Component({
     selector: 'app-signup',
@@ -8,7 +10,15 @@ import { routerTransition } from '../router.animations';
     animations: [routerTransition()]
 })
 export class SignupComponent implements OnInit {
-    constructor() {}
+    constructor(private router: Router) { }
 
-    ngOnInit() {}
+    ngOnInit() { }
+
+    public sendPassword() {
+
+        // tslint:disable-next-line:max-line-length
+        Swal.fire('Operación exitosa!', 'La nueva contraseña ha sido enviada al correo diligenciado. Esta contraseña la puede modifcar una vez ingresado al sistema.', 'success');
+
+        this.router.navigateByUrl('login');
+    }
 }

@@ -1,0 +1,22 @@
+<div class="table-responsive">
+  <table class="table table-striped w-auto">
+
+    <!--Table head-->
+    <thead>
+      <tr>
+        <th scope="col" *ngFor="let columnHeader of columnHeaders">{{columnHeader}}</th>
+      </tr>
+    </thead>
+    <!--Table head-->
+
+    <!--Table body-->
+    <tbody>
+      <tr class="table-info" *ngFor="let row of data">
+        <td *ngFor="let val of getValsFromObject(row)">{{val}}</td>
+      </tr>
+    </tbody>
+    <!--Table body-->
+
+
+  </table>
+</div>

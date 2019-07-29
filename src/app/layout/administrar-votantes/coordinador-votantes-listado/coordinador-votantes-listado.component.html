@@ -1,0 +1,27 @@
+<div class="container-fluid screen-height d-flex flex-column">
+  <div class="oz-body-wrap">
+    <div class="superContainer">
+
+      <div class="row">
+        <div class="col-md-12 col-xs-12 form-group d-flex">
+
+          <div class="container-tittle">
+            <div class="title">
+              <h2 class="mr-4">Listado de votantes</h2>
+            </div>
+
+            <div class="search"> <input [(ngModel)]="searchStatement" type="text" class="align-self-center form-control"
+                placeholder="Buscar"></div>
+          </div>
+
+        </div>
+
+        <div class="col-md-12 col-xs-12">
+          <app-table [columnHeaders]="['Apellido', 'Nombre', 'Cédula']" [data]="data" [headerToData]="headerToData">
+          </app-table>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

@@ -1,0 +1,19 @@
+<div class="card mb-3">
+  <div class="card-header">
+
+    <div class="container-tittle">
+      <div class="title">
+        <h3 class="mr-4">Historial de gastos</h3>
+      </div>
+
+      <div class="search"> <input [(ngModel)]="searchStatement" type="text" class="align-self-center form-control"
+          placeholder="Buscar"></div>
+    </div>
+
+  </div>
+  <div class="card-body">
+    <app-table [columnHeaders]="['Clasificación del gasto', 'Tipo de gasto', 'Monto']" [data]="data"
+      [headerToData]="headerToData">
+    </app-table>
+  </div>
+</div>

@@ -1,0 +1,102 @@
+<div class="container-fluid screen-height d-flex flex-column">
+  <div class="oz-body-wrap">
+    <div class="superContainer">
+
+      <div class="row">
+        <div class="col-md-12 col-xs-12">
+          <div class="row">
+            <div class="col-md-12 col-xs-12">
+              <h2>Consultar por lider</h2>
+            </div>
+          </div>
+
+          <div class="row form-group">
+            <div class="col-md-2 col-xs-12 col-form-label">
+              <label for="cedula lider">C.C. Lider</label>
+            </div>
+
+            <div class="col-md-10 col-xs-12">
+              <select [(ngModel)]="leader" id="cedula lider" class="form-control">
+                <option [ngValue]="null" selected disabled hidden>Lider</option>
+                <option *ngFor="let leaderOption of leaders" [ngValue]="leaderOption">{{leaderOption.name}}</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6 col-xs-12">
+              <div class="row">
+                <div class="col-md-4 col-xs-12 col-form-label">
+                  Primer nombre
+                </div>
+
+                <div class="col-md-8 col-xs-12 col-form-label">
+                  {{leader && leader.name ? leader.name : '-----'}}
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-6 col-xs-12">
+              <div class="row">
+                <div class="col-md-4 col-xs-12 col-form-label">
+                  Segundo nombre
+                </div>
+
+                <div class="col-md-8 col-xs-12 col-form-label">
+                  {{leader && leader.secondName ? leader.secondName : '-----'}}
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6 col-xs-12">
+              <div class="row">
+                <div class="col-md-4 col-xs-12 col-form-label">
+                  Primer apellido
+                </div>
+
+                <div class="col-md-8 col-xs-12 col-form-label">
+                  {{leader && leader.lastname ? leader.lastname : '-----'}}
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-6 col-xs-12">
+              <div class="row">
+                <div class="col-md-4 col-xs-12 col-form-label">
+                  Segundo apellido
+                </div>
+
+                <div class="col-md-8 col-xs-12 col-form-label">
+                  {{leader && leader.secondLastname ? leader.secondLastname : '-----'}}
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-2 col-xs-12 col-form-label">
+              Locación
+            </div>
+
+            <div class="col-md-4 col-xs-12 col-form-label">
+              placeholder
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-2 col-xs-12 col-form-label">
+              Votos asociados
+            </div>
+
+            <div class="col-md-4 col-xs-12 col-form-label">
+              placeholder
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

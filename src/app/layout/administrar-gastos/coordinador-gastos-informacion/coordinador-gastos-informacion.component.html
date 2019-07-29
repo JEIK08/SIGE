@@ -1,0 +1,82 @@
+<div class="card mb-3">
+  <div class="card-header">
+    <h4>Registro de gastos</h4>
+  </div>
+  <div class="card-body">
+    <form (ngSubmit)="onSubmit()">
+
+      <!-- START REGISTRO GASTOS -->
+      <div>
+
+        <div class="row">
+          <div class="col-md-12 col-xs-12">
+            <div class="row">
+
+              <div class="col-md-6 col-xs-12">
+                <div class="row">
+
+                  <div class="col-md-4 col-xs-12 col-form-label">
+                    <label for="tipo">Clasificación del gasto</label>
+                  </div>
+
+                  <div class="col-md-8 col-xs-12">
+                    <select [(ngModel)]="costToCreate.type" id="tipo" name="tipo name" class="form-control">
+                      <option [ngValue]="null" selected disabled hidden>Tipo de gasto</option>
+                      <option *ngFor="let costTypeOption of costTypes" [ngValue]="costTypeOption">
+                        {{costTypeOption.name}}
+                      </option>
+                    </select>
+                  </div>
+
+                </div>
+              </div>
+
+              <div class="col-md-6 col-xs-12">
+                <div class="row">
+                  <div class="col-md-4 col-xs-12 col-form-label">
+                    <label for="monto">Monto</label>
+                  </div>
+
+                  <div class="col-md-8 col-xs-12">
+                    <input [(ngModel)]="costToCreate.amount" type="number" name="monto name" id="monto"
+                      class="form-control">
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+            <div class="row">
+              <div class="col-md-2 col-xs-12 col-form-label">
+                <label for="lider">Lider</label>
+              </div>
+
+              <div class="col-md-10 col-xs-12">
+                <select [(ngModel)]="leaderSelected" id="lider" name="lider name" class="form-control">
+                  <option [ngValue]="null" selected disabled hidden>Lider</option>
+                  <option *ngFor="let leaderOption of leaders" [ngValue]="leaderOption">{{leaderOption.name}}</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-2 col-xs-12 col-form-label">
+                <label for="nombre">Nombre</label>
+              </div>
+
+              <div class="col-md-10 col-xs-12">
+                <input [(ngModel)]="costToCreate.name" id="nombre" name="nombre name" class="form-control" />
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <div class="button">
+        <button type="submit" class="btn btn-success">Agregar gasto</button>
+      </div>
+
+    </form>
+  </div>
+</div>

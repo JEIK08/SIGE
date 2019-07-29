@@ -1,0 +1,49 @@
+.buttons {
+    float: right;
+    width: 100% !important;
+}
+
+.agregar {
+    width: auto;
+    position: relative;
+    float: left;
+}
+
+.buscar {
+    width: auto;
+    position: relative;
+    float: right;
+}
+
+.table {
+    margin-top: 1%;
+}
+
+i {
+    color: white;
+}
+
+i:hover {
+    color: black;
+}
+
+.search {
+    width: 100% !important;
+    position: relative;
+    float: right;
+    text-align: right;
+    margin-top: 2%;
+    margin-bottom: 1%;
+}
+
+.titleSearch {
+    width: 60%;
+    position: relative;
+    float: left;
+}
+
+.search .icon {
+    width: 20%;
+    position: relative;
+    float: right;
+}

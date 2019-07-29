@@ -8,6 +8,7 @@ import { PageHeaderModule } from '../../shared';
 
 @NgModule({
     imports: [CommonModule, Ng2Charts, ChartsRoutingModule, PageHeaderModule],
-    declarations: [ChartsComponent]
+    declarations: [ChartsComponent],
+    exports: [ChartsComponent]
 })
-export class ChartsModule {}
+export class ChartsModule { }

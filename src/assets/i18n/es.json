@@ -1,6 +1,9 @@
 {
     "Dashboard": "Principal",
     "Charts": "Caracteres",
+    "Reports":"Reportes",
+    "Expenses": "Gastos",
+    "Budget":"Presupuesto",
     "Tables": "Tablas",
     "Forms": "Formularios",
     "Bootstrap Element": "Elementos Bootstrap",

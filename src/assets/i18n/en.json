@@ -1,7 +1,10 @@
 {
     "Dashboard": "Dashboard",
     "Charts": "Charts",
+    "Reports": "Reports",
     "Tables": "Tables",
+    "Expenses": "Expenses",
+    "Budget":"Budget",
     "Forms": "Forms",
     "Bootstrap Element": "Bootstrap Element",
     "Bootstrap Grid": "Bootstrap Grid",

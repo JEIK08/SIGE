@@ -1,0 +1,110 @@
+<div class="row">
+  <div class="col-md-12 col-xs-12">
+
+    <!-- START FORM -->
+    <div>
+      <div class="row">
+        <div class="col-md-6 col-xs-12">
+          <div class="row">
+            <div class="col-md-4 col-xs-12 col-form-label">
+              <label for="tipo">Clasificación</label>
+            </div>
+
+            <div class="col-md-8 col-xs-12">
+              <select [(ngModel)]="costToCreate.type" id="tipo" class="form-control">
+                <option [ngValue]="null" selected disabled hidden>Costo</option>
+                <option *ngFor="let costTypeOption of costTypes" [ngValue]="costTypeOption">{{costTypeOption.name}}
+                </option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-6 col-xs-12">
+          <div class="row">
+            <div class="col-md-4 col-xs-12 col-form-label">
+              <label for="nombre">Nombre</label>
+            </div>
+
+            <div class="col-md-8 col-xs-12">
+              <input [(ngModel)]="costToCreate.name" type="text" id="nombre" class="form-control">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+
+        <div class="col-md-6 col-xs-12">
+          <div class="row form-group">
+            <div class="col-md-4 col-xs-12 col-form-label">
+              <label for="monto">Descripción</label>
+            </div>
+
+            <div class="col-md-8 col-xs-12">
+              <textarea [(ngModel)]="costToCreate.description" id="descripcion" class="form-control"></textarea>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-6 col-xs-12">
+          <div class="row">
+            <div class="col-md-4 col-xs-12 col-form-label">
+              <label for="monto">Monto</label>
+            </div>
+
+            <div class="col-md-8 col-xs-12">
+              <input [(ngModel)]="costToCreate.amount" type="number" id="monto" class="form-control">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="buttons">
+
+      <div class="agregar">
+        <button type="button" (click)="addCost()" class="btn btn-success">
+          Agregar gasto
+        </button>
+      </div>
+
+      <div class="buscar">
+        <button type="button" class="btn btn-primary" (click)="showTable()">
+          <i class="fas fa-search" *ngIf="!showtable"></i>
+          <i class="fas fa-times" *ngIf="showtable"></i>
+        </button>
+      </div>
+    </div>
+    <!-- END FORM -->
+
+  </div>
+</div>
+
+<!-- SECTION GASTOS TABLE-->
+<div class="row gastos" *ngIf="showtable">
+
+  <div class="search">
+    <div class="col-md-12 col-xs-12 search">
+
+      <div class="titleSearch">
+      </div>
+      <div class="icon">
+        <input [(ngModel)]="searchStatement" type="text" class="form-control align-self-center" placeholder="Buscar">
+      </div>
+
+    </div>
+  </div>
+
+  <div class="table">
+
+    <div class="col-md-12 col-xs-12">
+      <app-table [columnHeaders]="['Clasificación', 'Nombre', 'Monto', 'Descripción']" [data]="tableData"
+        [headerToData]="headerToData">
+      </app-table>
+    </div>
+
+  </div>
+
+</div>
+<!-- END SECTION GASTOS TABLE -->

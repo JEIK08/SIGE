@@ -1,0 +1,70 @@
+<div class="row">
+  <div class="col-md-12 col-xs-12">
+
+    <div class="row">
+
+      <div class="col-md-6 col-xs-12">
+        <div class="row">
+          <div class="col-md-4 col-xs-12 col-form-label">
+            <label for="invitado">Invitado</label>
+          </div>
+
+          <div class="col-md-8 col-xs-12">
+            <select [(ngModel)]="userToAdd" name="" id="invitado" class="form-control">
+              <option [ngValue]="null" selected disabled hidden>Invitado</option>
+              <option *ngFor="let userOption of allUsers" [ngValue]="userOption">{{userOption.name}}</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-6 col-xs-12">
+        <div class="row">
+          <div class="col-md-4 col-xs-12">
+            Locación
+          </div>
+          <div class="col-md-8 col-xs-12">
+            ------ ------
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="buttons">
+
+      <div class="agregar">
+        <button type="button" (click)="addUser()" class="btn btn-success">
+          Agregar invitado
+        </button>
+      </div>
+
+      <div class="buscar">
+        <button type="button" class="btn btn-primary" (click)="showTable()">
+          <i class="fas fa-search" *ngIf="!showtable"></i>
+          <i class="fas fa-times" *ngIf="showtable"></i>
+        </button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="row" *ngIf="showtable">
+  <div class="search">
+    <div class="col-md-12 col-xs-12 search">
+
+      <div class="titleSearch">
+      </div>
+      <div class="icon">
+        <input [(ngModel)]="searchStatement" type="text" class="form-control align-self-center" placeholder="Buscar">
+      </div>
+
+    </div>
+  </div>
+
+  <div class="col-md-12 col-xs-12">
+    <app-table [columnHeaders]="['Número de identificación', 'Nombre del invitado', 'Locación']" [data]="tableData"
+      [headerToData]="headerToData"></app-table>
+  </div>
+</div>

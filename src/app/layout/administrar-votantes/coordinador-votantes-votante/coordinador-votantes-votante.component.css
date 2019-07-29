@@ -1,0 +1,15 @@
+.container-fluid {
+    height: auto !important;
+}
+
+.oz-body-wrap {
+    float: right;
+    margin-right: 5%;
+}
+
+.superContainer {
+    margin-bottom: 5%;
+    width: 100% !important;
+    height: auto !important;
+    padding: 3%;
+}

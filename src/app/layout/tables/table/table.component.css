@@ -1,0 +1,23 @@
+.table-responsive {
+    width: 100% !important;
+    height: 250px !important;
+    max-height: 700px !important;
+    overflow-y: scroll !important;
+}
+
+.icons {
+    height: 100% !important;
+    width: 30% !important;
+}
+
+.lnr {
+    color: green;
+}
+
+table {
+    width: 100% !important;
+}
+
+tbody tr {
+    background-color: black !important;
+}

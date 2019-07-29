@@ -1,0 +1,7 @@
+<div [@routerTransition]>
+    <app-page-header [heading]="'Gestión de eventos'" [icon]="'fa-bar-chart-o'"></app-page-header>
+    <app-coordinador-evento-informacion (eventCreated)="onEventCreated($event)">
+    </app-coordinador-evento-informacion>
+    <app-coordinador-evento-consultar #coordinadorEventoConsultar>
+    </app-coordinador-evento-consultar>
+</div>

@@ -1,0 +1,84 @@
+<div class="container-fluid screen-height d-flex flex-column">
+  <div class="oz-body-wrap">
+    <div class="superContainer">
+
+
+      <div class="row">
+        <div class="col-md-12 col-xs-12">
+          <div class="row">
+            <div class="col-md-12 col-xs-12">
+              <h2>Consultar votante</h2>
+            </div>
+          </div>
+
+          <div class="row form-group">
+            <div class="col-md-2 col-xs-12 col-form-label">
+              <label for="cedula votante">C.C. votante</label>
+            </div>
+
+            <div class="col-md-10 col-xs-12">
+              <select [(ngModel)]="voterLeader" id="cedula votante" class="form-control">
+                <option [ngValue]="null" selected disabled hidden>Votante</option>
+                <option *ngFor="let voterLeaderOption of voterLeaderList" [ngValue]="voterLeaderOption">{{voterLeaderOption.voter.name}}</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6 col-xs-12">
+              <div class="row">
+                <div class="col-md-4 col-xs-12 col-form-label">
+                  Nombre
+                </div>
+
+                <div class="col-md-8 col-xs-12 col-form-label">
+                  {{voterLeader && voterLeader.voter && voterLeader.voter.name ? voterLeader.voter.name : '-----'}}
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-6 col-xs-12">
+              <div class="row">
+                <div class="col-md-4 col-xs-12 col-form-label">
+                  Apellido
+                </div>
+
+                <div class="col-md-8 col-xs-12 col-form-label">
+                  {{voterLeader && voterLeader.voter && voterLeader.voter.lastname ? voterLeader.voter.lastname : '-----'}}
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6 col-xs-12">
+              <div class="row">
+                <div class="col-md-4 col-xs-12 col-form-label">
+                  Lider
+                </div>
+
+                <div class="col-md-8 col-xs-12 col-form-label">
+                  {{voterLeader && voterLeader.leader && voterLeader.leader.name ? voterLeader.leader.name : '-----'}}
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-6 col-xs-12">
+              <div class="row">
+                <div class="col-md-4 col-xs-12 col-form-label">
+                  Locación
+                </div>
+
+                <div class="col-md-8 col-xs-12 col-form-label">
+                  placeholder
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

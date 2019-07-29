@@ -1,0 +1,169 @@
+<div class="card mb-3">
+  <div class="card-header">
+    <h4>Formulario creación de eventos</h4>
+  </div>
+
+  <div class="card-body">
+    <form (ngSubmit)="onSubmit()">
+
+      <!-- DATOS GENERALES -->
+      <div class="datosGenerales">
+
+        <div class="subtitles">
+          <h5><u>Datos generales</u></h5>
+        </div>
+
+        <div class="row">
+
+          <div class="col-md-6 col-xs-12">
+            <div class="row form-group">
+              <div class="col-md-12 col-xs-12">
+
+                <div class="row form-group">
+                  <div class="col-md-4 col-xs-12 col-form-label">
+                    <label for="Nombre del evento">Nombre del evento</label>
+                  </div>
+
+                  <div class="col-md-8 col-xs-12">
+                    <input [(ngModel)]='eventToCreate.name' name="name name" type="text" id="nombre"
+                      class="form-control" placeholder="Nombre del evento">
+                  </div>
+                </div>
+
+
+                <div class="row form-group">
+                  <div class="col-md-4 col-xs-12 col-form-label">
+                    <label for="Lugar del evento">Lugar del evento</label>
+                  </div>
+
+                  <div class="col-md-8 col-xs-12">
+                    <input [(ngModel)]="eventToCreate.place" name="place name" type="text" id="lugar"
+                      class="form-control" placeholder="Lugar del evento">
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-6 col-xs-12 ">
+            <div class="row form-group margin">
+              <div class="col-md-12 col-xs-12 description">
+                <textarea [(ngModel)]="eventToCreate.description" name="description name" id="descripcion" rows="3"
+                  class="form-control" placeholder="Descripción"></textarea>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="row">
+
+          <div class="col-md-6 col-xs-12">
+            <div class="row form-group">
+              <div class="col-md-4 col-xs-12 col-form-label">
+                <label for="fecha inicio">Fecha de inicio</label>
+              </div>
+
+              <div class="col-md-8 col-xs-12">
+                <input [(ngModel)]="dateBeginning" name="fecha beginning name" type="date" id="fecha inicio"
+                  class="form-control">
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-6 col-xs-12">
+            <div class="row form-group">
+              <div class="col-md-4 col-xs-12 col-form-label">
+                <label for="fecha final">Fecha final</label>
+              </div>
+              <div class="col-md-8 col-xs-12">
+                <input [(ngModel)]="dateEnd" name="fecha fin name" type="date" id="fecha final" class="form-control">
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="row">
+
+          <div class="col-md-6 col-xs-12">
+            <div class="row form-group">
+              <div class="col-md-4 col-xs-12 col-form-label">
+                <label for="hora inicio">Hora de inicio</label>
+              </div>
+
+              <div class="col-md-8 col-xs-12">
+                <input [(ngModel)]="timeBeginning" name="hora beginning name" type="time" id="hora inicio"
+                  class="form-control">
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-6 col-xs-12">
+            <div class="row form-group">
+              <div class="col-md-4 col-xs-12 col-form-label">
+                <label for="hora final">Hora de finalización</label>
+              </div>
+
+              <div class="col-md-8 col-xs-12">
+                <input [(ngModel)]="timeEnd" name="hora end name" type="time" id="hora final" class="form-control">
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+      <!-- END DATOS GENERALES-->
+
+      <div class="line-final"></div>
+
+      <!-- GASTOS SECTION-->
+      <div>
+
+        <div class="subtitles">
+          <button type="button" class="btn btn-link" (click)="showEspecifications(true)">
+            Asignar gastos
+            <i class="fas fa-angle-double-down" *ngIf="!showGastos"></i>
+            <i class="fas fa-angle-double-up" *ngIf="showGastos"></i>
+          </button>
+        </div>
+
+        <div *ngIf="showGastos">
+          <app-coordinador-evento-informacion-gastos (costEmitter)="onCostEmitted($event)">
+          </app-coordinador-evento-informacion-gastos>
+        </div>
+
+      </div>
+      <!-- END GASTOS SECTION -->
+
+      <div class="line-final"></div>
+
+      <!-- INVITADOS SECTION -->
+      <div>
+
+        <div class="subtitles">
+          <button type="button" class="btn btn-link" (click)="showEspecifications(false)">
+            Agregar invitados
+            <i class="fas fa-angle-double-down" *ngIf="!showInvitados"></i>
+            <i class="fas fa-angle-double-up" *ngIf="showInvitados"></i>
+          </button>
+        </div>
+
+        <div *ngIf="showInvitados">
+          <app-coordinador-evento-informacion-invitados (usersAddedEmitter)="onGuestAdded($event)">
+          </app-coordinador-evento-informacion-invitados>
+        </div>
+
+      </div>
+      <!-- END INVITADOS SECTION -->
+      <div class="line-final"></div>
+
+      <div class="create-evento">
+        <button type="submit" class="btn btn-success"> Crear evento</button>
+      </div>
+
+    </form>
+  </div>
+</div>
