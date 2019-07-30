@@ -175,18 +175,37 @@ export class ChartsComponent implements OnInit {
         this.connectReports.getDataReport(array.route).subscribe(
             (data: any[]) => {
 				this.lista = data;
-				console.log(this.lista);
+				console.log(JSON.parse(JSON.stringify(this.lista)));
 				this.details = true;
 				let chartData = [];
 				this.barChartLabels = [];
-				this.lista.forEach((row: any) => {
-					this.getFullName(row.coordinador);
-					this.barChartLabels.push(row.coordinador.fullName);
-					chartData.push(row.coordinador.presupuesto);
-					row['Localidad'] = row.localidad.nombre;
-					row['Coordinador'] = row.coordinador.fullName;
-					row['Presupuesto'] = row.coordinador.presupuesto;
-				});
+				switch (array.route) {
+					case 'getReportePresupuesto':
+						this.lista.forEach((row: any) => {
+							this.getFullName(row.coordinador);
+							this.barChartLabels.push(row.coordinador.fullName);
+							chartData.push(row.coordinador.presupuesto);
+							row['Localidad'] = row.localidad.nombre;
+							row['Coordinador'] = row.coordinador.fullName;
+							row['Presupuesto'] = row.coordinador.presupuesto;
+						});
+					break;
+					case 'getReporteGasto':
+						let localidades: any = {}, aux: any;
+						this.lista.forEach((row: any) => {
+							if (localidades[row['Localidad']['nombre']]) localidades[row['Localidad']['nombre']]++;
+							else localidades[row['Localidad']['nombre']] = 1;
+							row['Clasificación'] = row['Clasificación']['nombre'];
+							row['Valor'] = row['Gasto']['valor'];
+							row['Nombre del gasto'] = row['Gasto']['nombre'];
+							row['Localidad'] = row['Localidad']['nombre'];
+						});
+						Object.keys(localidades).forEach((localidad: string) => {
+							this.barChartLabels.push(localidad);
+							chartData.push(localidades[localidad]);
+						});
+					break;
+				}
 				this.barChartData = [
 					{ data: chartData, label: 'Series A' }
 				];
