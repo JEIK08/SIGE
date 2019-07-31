@@ -191,7 +191,7 @@ export class ChartsComponent implements OnInit {
 						});
 					break;
 					case 'getReporteGasto':
-						let localidades: any = {}, aux: any;
+						let localidades: any = {};
 						this.lista.forEach((row: any) => {
 							if (localidades[row['Localidad']['nombre']]) localidades[row['Localidad']['nombre']]++;
 							else localidades[row['Localidad']['nombre']] = 1;
@@ -203,6 +203,21 @@ export class ChartsComponent implements OnInit {
 						Object.keys(localidades).forEach((localidad: string) => {
 							this.barChartLabels.push(localidad);
 							chartData.push(localidades[localidad]);
+						});
+					break;
+					case 'getReporteVotosLider':
+						let votosCandidatos: any = {};
+						this.lista.forEach((row: any) => {
+							this.getFullName(row['Lider']);
+							if (votosCandidatos[row['Lider']['fullName']]) votosCandidatos[row['Lider']['fullName']] += row['Lider']['votosAsociados'];
+							else votosCandidatos[row['Lider']['fullName']] = row['Lider']['votosAsociados'];
+							row['Localidad'] = row['Localidad']['nombre'];
+							row['Líder'] = row['Lider']['fullName'];
+							row['N° votos'] = row['Lider']['votosAsociados'];
+						});
+						Object.keys(votosCandidatos).forEach((candidato: string) => {
+							this.barChartLabels.push(candidato);
+							chartData.push(votosCandidatos[candidato]);
 						});
 					break;
 				}
@@ -245,13 +260,7 @@ export class ChartsComponent implements OnInit {
 	}
 	
 	getFullName(obj: any) {
-		if (obj instanceof Array) {
-			obj.forEach((elem: any) => {
-				elem.fullName = `${elem.nombre1}${elem.nombre2 ? ' ' + elem.nombre2 + ' ' : ' '}${elem.apellido1}${elem.apellido2 ? ' ' + elem.apellido2 : ''}`;
-			});
-		} else {
-			obj.fullName = `${obj.nombre1}${obj.nombre2 ? ' ' + obj.nombre2 + ' ' : ' '}${obj.apellido1}${obj.apellido2 ? ' ' + obj.apellido2 : ''}`;
-		}
+		obj.fullName = `${obj.nombre1}${obj.nombre2 ? ' ' + obj.nombre2 + ' ' : ' '}${obj.apellido1}${obj.apellido2 ? ' ' + obj.apellido2 : ''}`;
 	}
 
     // events
