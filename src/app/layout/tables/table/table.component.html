@@ -5,6 +5,7 @@
     <thead>
       <tr>
         <th scope="col" *ngFor="let columnHeader of columnHeaders">{{columnHeader}}</th>
+        <th scope="col">Opciones</th>
       </tr>
     </thead>
     <!--Table head-->
@@ -13,6 +14,10 @@
     <tbody>
       <tr class="table-info" *ngFor="let row of data">
         <td *ngFor="let val of getValsFromObject(row)">{{val}}</td>
+        <td>
+          <button (click)="edit(row)" type="button">Editar</button>
+          <button (click)="delete(row)" type="button(row)">Eliminar</button>
+        </td>
       </tr>
     </tbody>
     <!--Table body-->

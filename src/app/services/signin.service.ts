@@ -9,9 +9,8 @@ import { User } from '../models/user';
   providedIn: 'root'
 })
 export class SigninService {
-
-  private tokenUrl = 'http://192.168.5.73:3000/api/auth/login';
-  private signinUrl = 'http://192.168.5.73:3000/api/user';
+  private tokenUrl = '/api/auth/login';
+  private signinUrl = '/api/user';
   constructor(
     private http: HttpClient
   ) { }

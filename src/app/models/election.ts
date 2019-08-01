@@ -1,9 +1,5 @@
 import { Location } from './location';
-export class Election{
-    date: Date;
-    location: Location;
-    type: string;
-
+export class Election {
     static PRESIDENCIA = 'presidencia';
     static SENADO = 'senado';
     static ASAMBLEA = 'asamblea';
@@ -13,33 +9,31 @@ export class Election{
     static ALCALDIA = 'alcaldia';
     static CONSEJO = 'consejo';
 
-    /*
-    constructor(date: string = '', type: string = '', location=null){
-        this.date = date;
-        this.location = location;
-        this.type = '';
-    }
-    */
+    id: number;
+    date: Date;
+    location: Location;
+    type: string;
 
-    constructor(election?: any){
+    constructor(election?: any) {
+        this.id = election && election.id || -1;
         this.date = ((election && election.date) ? new Date(election.date) : null);
         this.location = ((election && election.location) ? new Location(election.location) : null);
         this.type = election && election.type || '';
     }
 
-    check(){
-        if (!this.date){
+    check() {
+        if (!this.date) {
             return false;
         }
 
-        if (this.location == null){
+        if (this.location == null) {
             return false;
         }
 
-        if (!this.location.check()){
+        if (!this.location.check()) {
             return false;
         }
 
-        return true
+        return true;
     }
 }

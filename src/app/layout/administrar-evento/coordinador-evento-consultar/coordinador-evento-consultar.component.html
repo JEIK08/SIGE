@@ -7,12 +7,16 @@
       </div>
 
       <div class="search"> <input [(ngModel)]="searchStatement" type="text" class="align-self-center form-control"
-          placeholder="Buscar"></div>
+        placeholder="Buscar"></div>
     </div>
 
   </div>
   <div class="card-body">
-    <app-table [columnHeaders]="['Nombre evento', 'Descripción', 'Fecha inicio', 'Lugar', 'Opciones']" [data]="data"
-      [headerToData]="headerToData"></app-table>
+    <app-table
+    [columnHeaders]="['Nombre evento', 'Descripción', 'Fecha inicio', 'Lugar', 'Opciones']"
+    [data]="data"
+    [headerToData]="headerToData"
+    (editEmitter)="onEdit($event)"
+    (deleteEmitter)="onDelete($event)"></app-table>
   </div>
 </div>

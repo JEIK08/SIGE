@@ -1,0 +1,30 @@
+.container-fluid {
+    height: auto !important;
+}
+
+.oz-body-wrap {
+    float: right;
+    margin-right: 5%;
+}
+
+.superContainer {
+    margin-bottom: 5%;
+    width: 100% !important;
+    height: auto !important;
+    padding: 3%;
+}
+
+.container-tittle {
+    width: 100%;
+    position: relative;
+}
+
+.title {
+    width: auto;
+    float: left;
+}
+
+.search {
+    width: 30%;
+    float: right;
+}

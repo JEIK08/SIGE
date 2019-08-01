@@ -12,7 +12,10 @@
 
   </div>
   <div class="card-body">
-    <app-table [columnHeaders]="['Apellido', 'Nombre', 'Cedula', 'Monto', 'Opciones']" [data]="data"
-      [headerToData]="headerToData"></app-table>
+    <app-table
+      [columnHeaders]="['Apellido', 'Nombre', 'Cedula', 'Monto', 'Opciones']"
+      [data]="data"
+      [headerToData]="headerToData"
+      (editEmitter)="onEdit($event)"></app-table>
   </div>
 </div>

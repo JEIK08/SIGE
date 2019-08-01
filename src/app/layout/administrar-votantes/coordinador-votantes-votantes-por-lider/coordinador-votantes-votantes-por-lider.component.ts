@@ -1,7 +1,9 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { User } from 'src/app/models/user';
+import { Location } from 'src/app/models/location';
 import { UserService } from 'src/app/services/user.service';
 import { DataSharingService } from 'src/app/services/data-sharing.service';
+import { LocationService } from 'src/app/services/location.service';
 
 @Component({
   selector: 'app-coordinador-votantes-votantes-por-lider',
@@ -11,6 +13,9 @@ import { DataSharingService } from 'src/app/services/data-sharing.service';
 export class CoordinadorVotantesVotantesPorLiderComponent implements OnInit {
   mLeader: User = null;
   leaders: User[] = [];
+
+  leaderLocation = '';
+
   @Output() leaderEmitter = new EventEmitter<User>();
 
   get leader(): User {
@@ -19,16 +24,22 @@ export class CoordinadorVotantesVotantesPorLiderComponent implements OnInit {
 
   set leader(l: User) {
     this.mLeader = l;
+
+    this.locationService.getLocation(this.mLeader).subscribe((location: Location) => {
+      this.leaderLocation = location && location.name ? location.name : '';
+    });
     this.onLeaderSelected();
   }
 
-  constructor(private userService: UserService, public dataService: DataSharingService) { }
+  constructor(private userService: UserService,
+              public dataService: DataSharingService,
+              private locationService: LocationService) { }
 
   ngOnInit() {
     this.fetchLeaders();
   }
 
-  fetchLeaders(){
+  fetchLeaders() {
     this.userService.getUsers(User.LIDER, this.dataService.serviceData).subscribe((leaders) => {
       this.leaders = leaders.map(l => new User(l));
     });

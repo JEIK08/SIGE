@@ -1,3 +1,7 @@
 <div [@routerTransition]>
   <app-page-header [heading]="'Gestión de líderes'" [icon]="'fa-bar-chart-o'"></app-page-header>
+  <div>
+    <app-coordinador-lideres-informacion (subordinateEmitter)="onSubordinateElected($event)"></app-coordinador-lideres-informacion>
+    <app-coordinador-lideres-consultar #coordinadorLideresConsultar></app-coordinador-lideres-consultar>
+  </div>
 </div>

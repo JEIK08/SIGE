@@ -5,8 +5,8 @@ import { User } from '../models/user';
   providedIn: 'root'
 })
 export class DataSharingService {
-  public serviceData: User;
-  public token = '';
+  serviceData: User;
+  token: string;
 
   constructor() { }
 }

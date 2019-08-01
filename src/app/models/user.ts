@@ -1,5 +1,14 @@
-//clase usuario
+// clase usuario
 export class User {
+    static ADMINISTRADOR = 'administrador';
+    static DIGITADOR = 'digitador';
+    static COORDINADOR = 'coordinador';
+    static TESTIGO = 'testigo';
+    static CANDIDATO = 'candidato';
+    static LIDER = 'lider';
+    static VOTANTE = 'votante';
+
+    id: string;
     cedula: string;
     email: string;
     name: string;
@@ -10,30 +19,18 @@ export class User {
     type: string;
     address: string;
     phone: string;
+    budget: number;
+    voteGoal: number;
+    votes: number;
 
-    static ADMINISTRADOR: string = 'administrador';
-    static DIGITADOR: string = 'digitador';
-    static COORDINADOR: string = 'coordinador';
-    static TESTIGO: string = 'testigo';
-    static CANDIDATO: string = 'candidato';
-    static LIDER: string = 'lider';
-
-    /*
-    constructor(cedula:string = '', email: string = '', name: string = '', secondName: string = '', lastname: string = '', secondLastname: string = '', password: string = '', type: string = '', address: string = '', phone = ''){
-        this.cedula = cedula;
-        this.email = email;
-        this.name = name;
-        this.secondName = secondName;
-        this.lastname = lastname;
-        this.secondLastname = secondLastname;
-        this.password = password;
-        this.type = type;
-        this.address = address;
-        this.phone = phone;
-    }
-    */
-
-    constructor(user?: any){
+    constructor(user?: any) {
+        if (user && user.id) {
+            this.id = user.id;
+        } else if (user && user.cedula) {
+            this.id = user.cedula;
+        } else {
+            this.id = '';
+        }
         this.cedula = user && user.cedula || '';
         this.email = user && user.email || '';
         this.name = user && user.name || '';
@@ -44,16 +41,19 @@ export class User {
         this.type = user && user.type || '';
         this.address = user && user.address || '';
         this.phone = user && user.phone || '';
+        this.budget = user && user.budget || 0;
+        this.voteGoal = user && user.voteGoal || 0;
+        this.votes = user && user.votes || 0;
     }
 
-    public check(){
-        if (!this.cedula){
+    public check() {
+        if (!this.cedula) {
             return false;
         }
-        if(!this.name){
+        if (!this.name) {
             return false;
         }
-        if(!this.lastname){
+        if (!this.lastname) {
             return false;
         }
 

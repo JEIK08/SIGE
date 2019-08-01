@@ -9,17 +9,23 @@ import { User } from '../models/user';
   providedIn: 'root'
 })
 export class LocationService {
-  private urlLocations = 'http://192.168.5.73:3000/api/getLocations';
-  private urlLocationTypes = 'http://192.168.5.73:3000/api/getLocationTypes';
-  private urlPostLocation = 'http://192.168.5.73:3000/api/administrador/postLocation';
-  private urlSearchlocation = 'http://192.168.5.73:3000/api/getLocationTable';
-  private urlGetTablesFromWitness = 'http://192.168.5.73:3000/api/testigo/getTablesFromWitness';
-  private urlPostVotesToTable = 'http://192.168.5.73:3000/api/testigo/postVotesToTable';
+  private urlLocations = '/api/getLocations';
+  private urlLocationTypes = '/api/getLocationTypes';
+  private urlPostLocation = '/api/administrador/postLocation';
+  private urlSearchlocation = '/api/getLocationTable';
+  private urlGetTablesFromWitness = '/api/getTablesFromWitness';
+  private urlPostVotesToTable = '/api/testigo/postVotesToTable';
+  private urlGetLocation = '/api/getLocation';
+  private urlDeleteLocation = '/api/administrador/deleteLocation';
+  private urlEditLocation = '/api/administrador/editLocation';
+  private urlGetFather = '/api/getFather';
+  private urlGetLocationFromId = '/api/getLocationFromId';
+  private urlGetLocationOfVoter = '/api/getLocationOfVoter';
 
   constructor(private http: HttpClient, public dataService: DataSharingService) { }
 
   getLocationTypes(): Observable<string[]> {
-    let httpOptions = {
+    const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type':  'application/json',
         'x-access-token': this.dataService.token
@@ -29,20 +35,17 @@ export class LocationService {
     return this.http.get<string[]>(this.urlLocationTypes, httpOptions);
   }
 
-  getLocations(type: string = 'any', father: Location = null): Observable<Location[]>{
-    let httpOptions = {
+  getLocations(pType: string = 'any', pFather: Location = null): Observable<Location[]> {
+    const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type':  'application/json',
         'x-access-token': this.dataService.token
       })
     };
-    let fatherId = -1;
-    if (father){
-      fatherId = father.id;
-    }
-    let body = {
-      'father': fatherId,
-      'type': type
+
+    const body = {
+      father: pFather,
+      type: pType
     };
 
     console.log(httpOptions);
@@ -51,27 +54,23 @@ export class LocationService {
     return this.http.post<Location[]>(this.urlLocations, body, httpOptions);
   }
 
-  postLocation(pLocation: Location, father: Location = null){
-    let httpOptions = {
+  postLocation(pLocation: Location, pFather: Location = null) {
+    const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type':  'application/json',
         'x-access-token': this.dataService.token
       })
     };
 
-    let fatherId = -1;
-    if (father){
-      fatherId = father.id;
-    }
-    let body = {
-      'location': pLocation,
-      'father': fatherId
-    }
+    const body = {
+      location: pLocation,
+      father: pFather
+    };
 
     return this.http.post(this.urlPostLocation, body, httpOptions);
   }
 
-  searchLocation(): Observable<{'Locación': string,
+  searchLocation(): Observable<{id: number, 'Locación': string,
   'Tipo': string,
   'Región': string,
   'Departamento': string,
@@ -79,14 +78,14 @@ export class LocationService {
   'Localidad': string,
   'Puesto de votación': string
 }[]> {
-    let httpOptions = {
+    const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type':  'application/json',
         'x-access-token': this.dataService.token
       })
     };
 
-    return this.http.get<{'Locación': string,
+    return this.http.get<{id: number, 'Locación': string,
     'Tipo': string,
     'Región': string,
     'Departamento': string,
@@ -97,33 +96,125 @@ export class LocationService {
   }
 
   getTablesFromWitness(witness: User): Observable<Location[]> {
-    let httpOptions = {
+    const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type':  'application/json',
         'x-access-token': this.dataService.token
       })
     };
 
-    let body = {
+    const body = {
       user: witness
     };
 
     return this.http.post<Location[]>(this.urlGetTablesFromWitness, body, httpOptions);
   }
 
-  postVotesToTable(pTable: Location, pVotes: number): Observable<any> {
-    let httpOptions = {
+  postVotesToTable(pCandidate: User, pTable: Location, pVotes: number): Observable<any> {
+    const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type':  'application/json',
         'x-access-token': this.dataService.token
       })
     };
 
-    let body = {
+    const body = {
+      candidate: pCandidate,
       table: pTable,
       votes: pVotes
     };
 
     return this.http.post<any>(this.urlPostVotesToTable, body, httpOptions);
+  }
+
+  getLocation(pUser: User): Observable<Location> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json',
+        'x-access-token': this.dataService.token
+      })
+    };
+
+    const body = {
+      user: pUser
+    };
+
+    return this.http.post<Location>(this.urlGetLocation, body, httpOptions);
+  }
+
+  deleteLocation(pLocation: Location): Observable<Location> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json',
+        'x-access-token': this.dataService.token
+      })
+    };
+
+    const body = {
+      location: pLocation
+    };
+
+    return this.http.post<Location>(this.urlDeleteLocation, body, httpOptions);
+  }
+
+  editLocation(pLocation: Location, pFather: Location): Observable<Location> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json',
+        'x-access-token': this.dataService.token
+      })
+    };
+
+    const body = {
+      location: pLocation,
+      father: pFather
+    };
+
+    return this.http.post<Location>(this.urlEditLocation, body, httpOptions);
+  }
+
+  getFather(pLocation: Location): Observable<Location> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json',
+        'x-access-token': this.dataService.token
+      })
+    };
+
+    const body = {
+      location: pLocation
+    };
+
+    return this.http.post<Location>(this.urlGetFather, body, httpOptions);
+  }
+
+  getLocationFromId(pId: number): Observable<Location> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json',
+        'x-access-token': this.dataService.token
+      })
+    };
+
+    const body = {
+      id: pId
+    };
+
+    return this.http.post<Location>(this.urlGetLocationFromId, body, httpOptions);
+  }
+
+  getLocationOfVoter(voter: User): Observable<Location> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json',
+        'x-access-token': this.dataService.token
+      })
+    };
+
+    const body = {
+      user: voter
+    };
+
+    return this.http.post<Location>(this.urlGetLocationOfVoter, body, httpOptions);
   }
 }

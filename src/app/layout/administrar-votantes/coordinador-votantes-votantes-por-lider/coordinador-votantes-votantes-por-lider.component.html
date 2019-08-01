@@ -18,7 +18,7 @@
             <div class="col-md-10 col-xs-12">
               <select [(ngModel)]="leader" id="cedula lider" class="form-control">
                 <option [ngValue]="null" selected disabled hidden>Lider</option>
-                <option *ngFor="let leaderOption of leaders" [ngValue]="leaderOption">{{leaderOption.name}}</option>
+                <option *ngFor="let leaderOption of leaders" [ngValue]="leaderOption">{{leaderOption.name + (leaderOption.lastname ? ' ' + leaderOption.lastname : '')}}</option>
               </select>
             </div>
           </div>
@@ -80,7 +80,7 @@
             </div>
 
             <div class="col-md-4 col-xs-12 col-form-label">
-              placeholder
+              {{leaderLocation ? leaderLocation : '-----'}}
             </div>
           </div>
 
@@ -90,7 +90,7 @@
             </div>
 
             <div class="col-md-4 col-xs-12 col-form-label">
-              placeholder
+              {{leader && leader.hasOwnProperty('votes') ? leader.votes : '-----'}}
             </div>
           </div>
 

@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-table',
@@ -10,13 +10,11 @@ export class TableComponent implements OnInit {
   @Input() data: object[];
   @Input() headerToData: object;
 
-  getValsFromObject(obj: object): string[]{
-    let vals =[];
-    /*
-    console.log(this.columnHeaders);
-    console.log(this.data);
-    console.log(this.headerToData);
-    */
+  @Output() editEmitter: EventEmitter<object> = new EventEmitter<object>();
+  @Output() deleteEmitter: EventEmitter<object> = new EventEmitter<object>();
+
+  getValsFromObject(obj: object): string[] {
+    const vals = [];
     this.columnHeaders.forEach(header => {
       vals.push(obj[this.headerToData[header]]);
     });
@@ -28,9 +26,17 @@ export class TableComponent implements OnInit {
   ngOnInit() {
   }
 
-  getAttr(obj, attr){
-    console.log(obj[attr])
+  getAttr(obj, attr) {
+    console.log(obj[attr]);
     return obj[attr];
+  }
+
+  edit(row: object) {
+    this.editEmitter.emit(row);
+  }
+
+  delete(row: object) {
+    this.deleteEmitter.emit(row);
   }
 
 }

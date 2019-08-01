@@ -2,6 +2,6 @@
   <app-page-header [heading]="'Gestión de votantes'" [icon]="'fa-bar-chart-o'"></app-page-header>
 
   <app-coordinador-votantes-votante></app-coordinador-votantes-votante>
-  <app-coordinador-votantes-votantes-por-lider></app-coordinador-votantes-votantes-por-lider>
-  <app-coordinador-votantes-listado></app-coordinador-votantes-listado>
+  <app-coordinador-votantes-votantes-por-lider (leaderEmitter)="onLeaderSelected($event)"></app-coordinador-votantes-votantes-por-lider>
+  <app-coordinador-votantes-listado #coordinadorVotantesListado></app-coordinador-votantes-listado>
 </div>

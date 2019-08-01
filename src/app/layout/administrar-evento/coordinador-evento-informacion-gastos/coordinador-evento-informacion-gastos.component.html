@@ -11,10 +11,9 @@
             </div>
 
             <div class="col-md-8 col-xs-12">
-              <select [(ngModel)]="costToCreate.type" id="tipo" class="form-control">
+              <select [compareWith]="compareCostType" [(ngModel)]="costToCreate.type" id="tipo" class="form-control">
                 <option [ngValue]="null" selected disabled hidden>Costo</option>
-                <option *ngFor="let costTypeOption of costTypes" [ngValue]="costTypeOption">{{costTypeOption.name}}
-                </option>
+                <option *ngFor="let costTypeOption of costTypes" [ngValue]="costTypeOption">{{costTypeOption.name}}</option>
               </select>
             </div>
           </div>
@@ -99,8 +98,11 @@
   <div class="table">
 
     <div class="col-md-12 col-xs-12">
-      <app-table [columnHeaders]="['Clasificación', 'Nombre', 'Monto', 'Descripción']" [data]="tableData"
-        [headerToData]="headerToData">
+      <app-table
+        [columnHeaders]="['Clasificación', 'Nombre', 'Monto', 'Descripción']"
+        [data]="tableData"
+        [headerToData]="headerToData"
+        (deleteEmitter)="deleteCost($event)">
       </app-table>
     </div>
 

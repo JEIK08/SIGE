@@ -10,30 +10,37 @@ import { User } from '../models/user';
   providedIn: 'root'
 })
 export class CostService {
-  private urlPostCostType = 'http://192.168.5.73:3000/api/administrador/postCostType';
-  private urlGetCostTypes = 'http://192.168.5.73:3000/api/getCostTypes';
-  private urlPostCost = 'http://192.168.5.73:3000/api/shared/postCost';
-  private urlSearchCosts = 'http://192.168.5.73:3000/api/getCostTable';
+  private urlPostCostType = '/api/administrador/postCostType';
+  private urlGetCostTypes = '/api/getCostTypes';
+  private urlPostCost = '/api/shared/postCost';
+  private urlSearchCosts = '/api/getCostTable';
+  private urlEditCost = '/api/shared/editCost';
+  private urlDeleteCost = '/api/shared/deleteCost';
+  private urlEditCostType = '/api/administrador/editCostType';
+  private urlDeleteCostType = '/api/administrador/deleteCostType';
+  private urlGetCostFromId = '/api/getCostFromId';
+  private urlGetCostTypeFromId = '/api/getCostTypeFromId';
+  private urlGetUser = '/api/getCostOwner';
 
   constructor(private http: HttpClient, public dataService: DataSharingService) { }
 
-  postCostType(pCostType: CostType): Observable<CostType>{
-    let httpOptions = {
+  postCostType(pCostType: CostType): Observable<CostType> {
+    const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type':  'application/json',
         'x-access-token': this.dataService.token
       })
     };
-    
-    let body = {
+
+    const body = {
       costType: pCostType
     };
 
     return this.http.post<CostType>(this.urlPostCostType, body, httpOptions);
   }
 
-  getCostTypes(): Observable<CostType[]>{
-    let httpOptions = {
+  getCostTypes(): Observable<CostType[]> {
+    const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type':  'application/json',
         'x-access-token': this.dataService.token
@@ -43,32 +50,135 @@ export class CostService {
     return this.http.get<CostType[]>(this.urlGetCostTypes, httpOptions);
   }
 
-  postCost(pCost: Cost): Observable<Cost>{
-    let httpOptions = {
+  postCost(pCost: Cost): Observable<Cost> {
+    const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type':  'application/json',
         'x-access-token': this.dataService.token
       })
     };
 
-    let body = {
+    const body = {
       cost: pCost
-    }
+    };
     return this.http.post<Cost>(this.urlPostCost, body, httpOptions);
   }
 
-  searchCosts(pUser: User = null): Observable<{type: string, amount: number, name: string}[]>{
-    let httpOptions = {
+  searchCosts(pUser: User = null): Observable<{id: number, type: string, amount: number, name: string}[]> {
+    const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type':  'application/json',
         'x-access-token': this.dataService.token
       })
     };
 
-    let body = {
+    const body = {
       user: pUser
-    }
+    };
 
-    return this.http.post<{type: string, amount, number, name: string}[]>(this.urlSearchCosts, body, httpOptions);
+    return this.http.post<{id: number, type: string, amount, number, name: string}[]>(this.urlSearchCosts, body, httpOptions);
+  }
+
+  editCost(pCost: Cost): Observable<Cost> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json',
+        'x-access-token': this.dataService.token
+      })
+    };
+
+    const body = {
+      cost: pCost
+    };
+    return this.http.post<Cost>(this.urlEditCost, body, httpOptions);
+  }
+
+  deleteCost(pCost: Cost): Observable<Cost> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json',
+        'x-access-token': this.dataService.token
+      })
+    };
+
+    const body = {
+      cost: pCost
+    };
+    return this.http.post<Cost>(this.urlDeleteCost, body, httpOptions);
+  }
+
+  editCostType(pCostType: CostType): Observable<CostType> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json',
+        'x-access-token': this.dataService.token
+      })
+    };
+
+    const body = {
+      costType: pCostType
+    };
+
+    return this.http.post<CostType>(this.urlEditCostType, body, httpOptions);
+  }
+
+  deleteCostType(pCostType: CostType): Observable<CostType> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json',
+        'x-access-token': this.dataService.token
+      })
+    };
+
+    const body = {
+      costType: pCostType
+    };
+
+    return this.http.post<CostType>(this.urlDeleteCostType, body, httpOptions);
+  }
+
+  getCostFromId(pId: number): Observable<Cost> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json',
+        'x-access-token': this.dataService.token
+      })
+    };
+
+    const body = {
+      id: pId
+    };
+
+    return this.http.post<Cost>(this.urlGetCostFromId, body, httpOptions);
+  }
+
+  getCostTypeFromId(pId: number): Observable<CostType> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json',
+        'x-access-token': this.dataService.token
+      })
+    };
+
+    const body = {
+      id: pId
+    };
+
+    return this.http.post<CostType>(this.urlGetCostTypeFromId, body, httpOptions);
+  }
+
+  getOwner(pCost: Cost): Observable<User> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json',
+        'x-access-token': this.dataService.token
+      })
+    };
+
+    const body = {
+      cost: pCost
+    };
+
+    return this.http.post<User>(this.urlGetUser, body, httpOptions);
   }
 }

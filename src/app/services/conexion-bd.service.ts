@@ -9,7 +9,7 @@ export const URL = 'http://206.189.202.242:3000';
 export function pred(token: string) {
   /*
   Si token es vacío, tomo el valor del token guardado en session. De lo contrario, lo dejo igual */
-  token = token.length === 0 ? localStorage.getItem('qwerty') : token;
+  token = token == null || token.length === 0 ? localStorage.getItem('qwerty') : token;
   /*
   Si el token en session no existe, entonces le otorgo vacío */
   token = token ? token : '';
@@ -39,7 +39,7 @@ export class ConexionBDService {
 
   login(correo: string, contrasena: string) {
 
-    const url = `${URL}/api/auth/login/`;
+    const url = '/api/auth/login/';
     const body: { correo: string, contrasena: string } = {
       correo: correo,
       contrasena: contrasena
@@ -50,7 +50,7 @@ export class ConexionBDService {
 
   getUser(): Observable<User> {
 
-    const url = `${URL}/api/user/`;
+    const url = '/api/user/';
 
     return this.http.get<User>(url, { headers: pred(this.token.token) });
   }

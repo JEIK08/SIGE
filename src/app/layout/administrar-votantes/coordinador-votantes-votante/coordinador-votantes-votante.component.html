@@ -19,7 +19,7 @@
             <div class="col-md-10 col-xs-12">
               <select [(ngModel)]="voterLeader" id="cedula votante" class="form-control">
                 <option [ngValue]="null" selected disabled hidden>Votante</option>
-                <option *ngFor="let voterLeaderOption of voterLeaderList" [ngValue]="voterLeaderOption">{{voterLeaderOption.voter.name}}</option>
+                <option *ngFor="let voterLeaderOption of voterLeaderList" [ngValue]="voterLeaderOption">{{voterLeaderOption.voter.name + (voterLeaderOption.voter.lastname ? ' ' + voterLeaderOption.voter.lastname : '')}}</option>
               </select>
             </div>
           </div>
@@ -70,7 +70,21 @@
                 </div>
 
                 <div class="col-md-8 col-xs-12 col-form-label">
-                  placeholder
+                  {{voterLocation ? voterLocation : '-----'}}
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6 col-xs-12">
+              <div class="row">
+                <div class="col-md-4 col-xs-12 col-form-label">
+                  Puesto de votación
+                </div>
+
+                <div class="col-md-8 col-xs-12 col-form-label">
+                  {{votingStation ? votingStation : '-----'}}
                 </div>
               </div>
             </div>

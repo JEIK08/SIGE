@@ -1,0 +1,111 @@
+<div class="card mb-3">
+  <div class="card-header">
+    <h4>Registro de gastos</h4>
+  </div>
+  <div class="card-body">
+    <div class="superContainer">
+
+      <div class="row">
+        <div class="col-md-12 col-xs-12">
+          <div class="row">
+            <div class="col-md-12 col-xs-12">
+              <h2>Información de lideres</h2>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-2 col-xs-12 col-form-label">
+              <label for="cedula lider">C.C Lider</label>
+            </div>
+            <div class="col-md-4 col-xs-12">
+              <select [(ngModel)]="subordinate" id="cedula lider" class="form-control">
+                <option [ngValue]="null" selected disabled hidden>Subordinado</option>
+                <option *ngFor="let subordinateOption of subordinates" [ngValue]="subordinateOption">{{subordinateOption.name}}</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6 col-xs-12">
+              <div class="row">
+                <div class="col-md-4 col-xs-12 form col-form-label">
+                  Primer nombre
+                </div>
+
+                <div class="col-md-8 col-xs-12 col-form-label">
+                  {{subordinate && subordinate.name ? subordinate.name : '-----'}}
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-6 col-xs-12">
+              <div class="row">
+                <div class="col-md-4 col-xs-12 form col-form-label">
+                  Segundo nombre
+                </div>
+
+                <div class="col-md-8 col-xs-12 col-form-label">
+                  {{subordinate && subordinate.secondName ? subordinate.secondName : '-----'}}
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6 col-xs-12">
+              <div class="row">
+                <div class="col-md-4 col-xs-12 form col-form-label">
+                  Primer apellido
+                </div>
+
+                <div class="col-md-8 col-xs-12 col-form-label">
+                  {{subordinate && subordinate.lastname ? subordinate.lastname : '-----'}}
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-6 col-xs-12">
+              <div class="row">
+                <div class="col-md-4 col-xs-12 form col-form-label">
+                  Segundo apellido
+                </div>
+
+                <div class="col-md-8 col-xs-12 col-form-label">
+                  {{subordinate && subordinate.secondLastname ? subordinate.secondLastname : '-----'}}
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6 col-xs-12">
+              <div class="row">
+                <div class="col-md-4 col-xs-12 col-form-label">
+                  Locación
+                </div>
+                <div class="col-md-8 col-xs-12 col-form-label">
+                  {{subordinateLocation ? subordinateLocation : '-----'}}
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-6 col-xs-12">
+              <div class="row">
+                <div class="col-md-4 col-xs-12 col-form-label">
+                  Meta
+                </div>
+                <div class="col-md-8 col-xs-12 col-form-label">
+                  <input [(ngModel)]="voteGoal" [disabled]="subordinate == null || (subordinate.type !== COORDINADOR && subordinate.type !== LIDER)" type="number" class="form-control" placeholder="Meta">
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <button (click)="postGoal()" class="form-control btn btn-success" type="button">Actualizar meta</button>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

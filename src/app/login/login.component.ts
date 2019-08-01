@@ -5,6 +5,7 @@ import { ConexionBDService } from '../services/conexion-bd.service';
 import Swal from 'sweetalert2';
 import { AuthGuard } from '../shared';
 import { DataSharingService } from '../services/data-sharing.service';
+import { User } from '../models/user';
 
 @Component({
   selector: 'app-login',
@@ -48,7 +49,7 @@ export class LoginComponent implements OnInit {
         if (data.type === 'candidato') {
           console.log(data);
 
-          this.tokenService.serviceData = data;
+          this.tokenService.serviceData = new User(data);
           this.activeSession(data['name'] + ' ' + data['lastname']);
         } else {
           Swal.fire('Error de ingreso', 'Usted no es un candidato.', 'error');

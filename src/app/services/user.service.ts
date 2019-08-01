@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { User } from '../models/user';
 import { Location } from '../models/location';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Election } from '../models/election';
 import { DataSharingService } from './data-sharing.service';
 
@@ -10,29 +10,43 @@ import { DataSharingService } from './data-sharing.service';
   providedIn: 'root'
 })
 export class UserService {
-  urlPostUser = 'http://192.168.5.73:3000/api/administrador/postUser';
-  urlPostCandidate = 'http://192.168.5.73:3000/api/administrador/postCandidate';
-  urlSearchUser = 'http://192.168.5.73:3000/api/getUsersTable';
-  urlSearchVoter = 'http://192.168.5.73:3000/api/digitador/getVoterTable';
-  urlGetUserTypes = 'http://192.168.5.73:3000/api/getUserTypes';
-  urlGetUsers = 'http://192.168.5.73:3000/api/getUsers';
-  urlPostVoter = 'http://192.168.5.73:3000/api/digitador/postVoter';
-  urlPostBudget = 'http://192.168.5.73:3000/api/shared/postBudget';
-  urlSearchBudget = 'http://192.168.5.73:3000/api/searchBudget';
-  urlGetVoters = 'http://192.168.5.73:3000/api/getVoters';
-  urlGetCandidate = 'http://192.168.5.73:3000/api/getCandidate';
-  urlSearchVotersFromLeader = 'http://192.168.5.73:3000/api/shared/getVotersFromLeader';
+  urlPostUser = '/api/administrador/postUser';
+  urlPostCandidate = '/api/administrador/postCandidate';
+  urlSearchUser = '/api/getUsersTable';
+  urlSearchVoter = '/api/digitador/getVoterTable';
+  urlGetUserTypes = '/api/getUserTypes';
+  urlGetUsers = '/api/getUsers';
+  urlPostVoter = '/api/digitador/postVoter';
+  urlPostBudget = '/api/shared/postBudget';
+  urlSearchBudget = '/api/searchBudget';
+  urlGetVoters = '/api/getVoters';
+  urlGetCandidate = '/api/getCandidate';
+  urlSearchVotersFromLeader = '/api/shared/getVotersFromLeader';
+  urlDeleteUser = '/api/administrador/deleteUser';
+  urlEditUser = '/api/administrador/editUser';
+  urlDeleteVoter = '/api/digitador/deleteVoter';
+  urlEditVoter = '/api/digitador/editVoter';
+  urlPostTestigo = '/api/administrador/postTestigo';
+  urlDeleteCandidate = '/api/administrador/deleteCandidate';
+  urlEditCandidate = '/api/administrador/editCandidate';
+  urlDeleteTestigo = '/api/administrador/deleteTestigo';
+  urlEditTestigo = '/api/administrador/editTestigo';
+  urlGetManager = '/api/getManager';
+  urlGetUserFromId = '/api/getUserFromId';
+  urlGetLeaderOfVoter = '/api/getLeaderOfVoter';
+  urlGetVoterFromId = '/api/getVoterFromId';
+  urlPostGoal = '/api/shared/postGoal';
 
   constructor(private http: HttpClient, public dataService: DataSharingService) { }
 
-  postUser(pUser: User, pManager: User = null): Observable<User>{
-    
-    let body = {
+  postUser(pUser: User, pLocation: Location = null, pManager: User = null): Observable<User> {
+    const body = {
       user: pUser,
-      manager: pManager
+      manager: pManager,
+      location: pLocation
     };
 
-    let httpOptions = {
+    const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type':  'application/json',
         'x-access-token': this.dataService.token
@@ -41,13 +55,30 @@ export class UserService {
     return this.http.post<User>(this.urlPostUser, body, httpOptions);
   }
 
-  postCandidato(pUser: User, pElection: Election): Observable<User>{
+  postTestigo(pUser: User, pTables: Location[], pManager: User): Observable<User> {
+    const body = {
+      user: pUser,
+      manager: pManager,
+      tables: pTables
+    };
 
-    let body = {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json',
+        'x-access-token': this.dataService.token
+      })
+    };
+
+    return this.http.post<User>(this.urlPostTestigo, body, httpOptions);
+  }
+
+  postCandidato(pUser: User, pElection: Election): Observable<User> {
+
+    const body = {
       user: pUser,
       election: pElection
     };
-    let httpOptions = {
+    const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type':  'application/json',
         'x-access-token': this.dataService.token
@@ -57,6 +88,7 @@ export class UserService {
   }
 
   searchUser(): Observable<{
+    'id': string,
     'Primer apellido': string,
     'Segundo apellido': string,
     'Cédula': string,
@@ -67,8 +99,8 @@ export class UserService {
     'Rol': string,
     'Correo': string,
     'Fecha': string
-  }[]>{
-    let httpOptions = {
+  }[]> {
+    const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type':  'application/json',
         'x-access-token': this.dataService.token
@@ -76,6 +108,7 @@ export class UserService {
     };
 
     return this.http.get<{
+      'id': string,
       'Primer apellido': string,
       'Segundo apellido': string,
       'Cédula': string,
@@ -89,56 +122,68 @@ export class UserService {
     }[]>(this.urlSearchUser, httpOptions);
   }
 
-  searchVoter(pUser: User): Observable<{name: string, lastname: string, cedula: string, address: string}[]>{
-    let httpOptions = {
+  searchVoter(pUser: User): Observable<{
+    id: string,
+    name: string,
+    lastname: string,
+    cedula: string,
+    address: string
+  }[]> {
+    const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type':  'application/json',
         'x-access-token': this.dataService.token
       })
     };
 
-    let body = {
+    const body = {
       user: pUser
-    }
+    };
 
-    return this.http.post<{name: string, lastname: string, cedula: string, address: string}[]>(this.urlSearchVoter, body, httpOptions);
+    return this.http.post<{
+      id: string,
+      name: string,
+      lastname: string,
+      cedula: string,
+      address: string
+    }[]>(this.urlSearchVoter, body, httpOptions);
   }
 
-  getUserTypes(): Observable<string[]>{
-    let httpOptions = {
+  getUserTypes(): Observable<string[]> {
+    const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type':  'application/json',
         'x-access-token': this.dataService.token
       })
     };
     return this.http.get<string[]>(this.urlGetUserTypes, httpOptions);
-  } 
-
-  getUsers(type: string = '', manager: User = null): Observable<User[]>{
-    let httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type':  'application/json',
-        'x-access-token': this.dataService.token
-      })
-    };
-
-    let body = {
-      'type': type,
-      'manager': manager
-    }
-
-    return this.http.post<User[]>(this.urlGetUsers, body, httpOptions);    
   }
 
-  postVoter(pVoter: User, pLeader: User, pLocation: Location): Observable<User>{
-    let httpOptions = {
+  getUsers(pType: string = '', pManager: User = null): Observable<User[]> {
+    const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type':  'application/json',
         'x-access-token': this.dataService.token
       })
     };
 
-    let body = {
+    const body = {
+      type: pType,
+      manager: pManager
+    };
+
+    return this.http.post<User[]>(this.urlGetUsers, body, httpOptions);
+  }
+
+  postVoter(pVoter: User, pLeader: User, pLocation: Location): Observable<User> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json',
+        'x-access-token': this.dataService.token
+      })
+    };
+
+    const body = {
       voter: pVoter,
       leader: pLeader,
       location: pLocation
@@ -146,99 +191,307 @@ export class UserService {
     return this.http.post<User>(this.urlPostVoter, body, httpOptions);
   }
 
-  postBudget(pUser: User, pBudget: number): Observable<User>{
-    let httpOptions = {
+  postBudget(pUser: User, pBudget: number): Observable<User> {
+    const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type':  'application/json',
         'x-access-token': this.dataService.token
       })
     };
 
-    let body = {
+    const body = {
       user: pUser,
       budget: pBudget
-    }
+    };
 
     return this.http.post<User>(this.urlPostBudget, body, httpOptions);
   }
 
-  searchBudget(pSearchStatement: string = ''): Observable<{lastname: string, name: string, cedula: string, budget: number}[]>{
-    let httpOptions = {
+  searchBudget(pSearchStatement: string = ''): Observable<{id: number, lastname: string, name: string, cedula: string, budget: number}[]> {
+    const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type':  'application/json',
         'x-access-token': this.dataService.token
       })
     };
 
-    let body = {
+    const body = {
       searchStatement: pSearchStatement
-    }
+    };
 
-    return this.http.post<{lastname: string, name: string, cedula: string, budget: number}[]>(this.urlSearchBudget, body, httpOptions);
+    return this.http.post<{
+      id: number,
+      lastname: string,
+      name: string,
+      cedula: string,
+      budget: number}[]>(this.urlSearchBudget, body, httpOptions);
   }
 
-  getVoters(pUser: User): Observable<{voter: User, leader: User}[]>{
-    let httpOptions = {
+  getVoters(pUser: User): Observable<{voter: User, leader: User}[]> {
+    const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type':  'application/json',
         'x-access-token': this.dataService.token
       })
     };
 
-    let body = {
+    const body = {
       user: pUser
     };
 
     return this.http.post<{voter: User, leader: User}[]>(this.urlGetVoters, body, httpOptions);
   }
 
-  getCandidate(pUser: User): Observable<User>{
-    let httpOptions = {
+  getCandidate(pUser: User): Observable<User> {
+    const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type':  'application/json',
         'x-access-token': this.dataService.token
       })
     };
 
-    let body = {
+    const body = {
       user: pUser
     };
 
     return this.http.post<User>(this.urlGetCandidate, body, httpOptions);
   }
 
-  searchVotersFromLeader(pLeader: User = null): Observable<User[]>{
-    let httpOptions = {
+  searchVotersFromLeader(pLeader: User = null): Observable<User[]> {
+    const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type':  'application/json',
         'x-access-token': this.dataService.token
       })
     };
 
-    let body = {
+    const body = {
       user: pLeader
     };
 
     return this.http.post<User[]>(this.urlSearchVotersFromLeader, body, httpOptions);
   }
 
-  getUsersWithLocation(type: string = '', manager: User = null): Observable<{user: User, location: Location}[]>{
-    let manager_email = '';
-    if (manager){
-      manager_email = manager.email;
+  getUsersWithLocation(pType: string = '', pManager: User = null): Observable<{user: User, location: Location}[]> {
+    let managerEmail = '';
+    if (pManager) {
+      managerEmail = pManager.email;
     }
-    let httpOptions = {
+    const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type':  'application/json',
         'x-access-token': this.dataService.token
       })
     };
 
-    let body = {
-      'type': type,
-      'manager': manager_email
-    }
+    const body = {
+      type: pType,
+      manager: managerEmail
+    };
 
-    return this.http.post<{user: User, location: Location}[]>(this.urlGetUsers, body, httpOptions);    
+    return this.http.post<{user: User, location: Location}[]>(this.urlGetUsers, body, httpOptions);
+  }
+
+  deleteUser(pUser: User): Observable<User> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json',
+        'x-access-token': this.dataService.token
+      })
+    };
+
+    const body = {
+      user: pUser
+    };
+
+    return this.http.post<User>(this.urlDeleteUser, body, httpOptions);
+  }
+
+  editUser(pUser: User, pLocation: Location = null, pManager: User = null): Observable<User> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json',
+        'x-access-token': this.dataService.token
+      })
+    };
+
+    const body = {
+      user: pUser,
+      manager: pManager,
+      location: pLocation
+    };
+
+    return this.http.post<User>(this.urlEditUser, body, httpOptions);
+  }
+
+  editVoter(pUser: User, pLeader: User, pLocation: Location): Observable<User> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json',
+        'x-access-token': this.dataService.token
+      })
+    };
+
+    const body = {
+      user: pUser,
+      leader: pLeader,
+      location: pLocation
+    };
+
+    return this.http.post<User>(this.urlEditVoter, body, httpOptions);
+  }
+
+  deleteVoter(pUser: User): Observable<User> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json',
+        'x-access-token': this.dataService.token
+      })
+    };
+
+    const body = {
+      user: pUser
+    };
+
+    return this.http.post<User>(this.urlDeleteVoter, body, httpOptions);
+  }
+
+  editCandidate(pUser: User, pElection: Election): Observable<User> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json',
+        'x-access-token': this.dataService.token
+      })
+    };
+
+    const body = {
+      user: pUser,
+      election: pElection
+    };
+
+    return this.http.post<User>(this.urlEditCandidate, body, httpOptions);
+  }
+
+  deleteCandidate(pUser: User): Observable<User> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json',
+        'x-access-token': this.dataService.token
+      })
+    };
+
+    const body = {
+      user: pUser,
+    };
+
+    return this.http.post<User>(this.urlDeleteCandidate, body, httpOptions);
+  }
+
+  editTestigo(pUser: User, pTables: Location[], pManager: User): Observable<User> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json',
+        'x-access-token': this.dataService.token
+      })
+    };
+
+    const body = {
+      user: pUser,
+      tables: pTables,
+      manager: pManager
+    };
+
+    return this.http.post<User>(this.urlEditTestigo, body, httpOptions);
+  }
+
+  deleteTestigo(pUser: User): Observable<User> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json',
+        'x-access-token': this.dataService.token
+      })
+    };
+
+    const body = {
+      user: pUser
+    };
+
+    return this.http.post<User>(this.urlDeleteTestigo, body, httpOptions);
+  }
+
+  getManager(pUser: User): Observable<User> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json',
+        'x-access-token': this.dataService.token
+      })
+    };
+
+    const body = {
+      user: pUser
+    };
+
+    return this.http.post<User>(this.urlGetManager, body, httpOptions);
+  }
+
+  getUserFromId(pId: string): Observable<User> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json',
+        'x-access-token': this.dataService.token
+      })
+    };
+
+    const body = {
+      id: pId
+    };
+
+    return this.http.post<User>(this.urlGetUserFromId, body, httpOptions);
+  }
+
+  getLeaderOfVoter(voter: User): Observable<User> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json',
+        'x-access-token': this.dataService.token
+      })
+    };
+
+    const body = {
+      user: voter
+    };
+
+    return this.http.post<User>(this.urlGetLeaderOfVoter, body, httpOptions);
+  }
+
+  getVoterFromId(pId: string): Observable<User> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json',
+        'x-access-token': this.dataService.token
+      })
+    };
+
+    const body = {
+      id: pId
+    };
+
+    return this.http.post<User>(this.urlGetVoterFromId, body, httpOptions);
+  }
+
+  postGoal(pUser: User, pGoal: number): Observable<User> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json',
+        'x-access-token': this.dataService.token
+      })
+    };
+
+    const body = {
+      user: pUser,
+      goal: pGoal
+    };
+
+    return this.http.post<User>(this.urlPostGoal, body, httpOptions);
   }
 }

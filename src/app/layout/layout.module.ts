@@ -18,6 +18,7 @@ import { PageHeaderModule } from '../shared';
 import { AdministrarGastosModule } from './administrar-gastos/administrar-gastos.module';
 import { AdministrarPresupuestoModule } from './administrar-presupuesto/administrar-presupuesto.module';
 import { AdministrarVotantesModule } from './administrar-votantes/administrar-votantes.module';
+import { AdministrarLideresModule } from './administrar-lideres/administrar-lideres.module';
 
 @NgModule({
     imports: [
@@ -32,12 +33,13 @@ import { AdministrarVotantesModule } from './administrar-votantes/administrar-vo
         AdministrarEventoModule,
         AdministrarGastosModule,
         AdministrarPresupuestoModule,
-        AdministrarVotantesModule
+        AdministrarVotantesModule,
+        AdministrarLideresModule
     ],
     declarations: [
         LayoutComponent,
         SidebarComponent,
-        HeaderComponent,
-        AdministrarLideresComponent]
+        HeaderComponent
+    ]
 })
 export class LayoutModule { }
