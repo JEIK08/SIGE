@@ -5,8 +5,8 @@ import { Observable } from 'rxjs';
 @Injectable()
 export class MyHttpInterceptor implements HttpInterceptor {
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-        // Server ip: 206.189.202.242
-        const mUrl = 'http://206.189.202.242:3000';
+        // Server ip: 159.89.51.90
+        const mUrl = 'http://159.89.51.90:3000';
         req = req.clone({
             url: mUrl + req.url
         });
