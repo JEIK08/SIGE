@@ -35,9 +35,9 @@ export class ReportesCampaniaLocalidadesComponent implements OnInit {
       'dates': ['Localidad', 'Puesto de votación', 'Mesa', 'N° votos'],
       'series': 1,
       'label': 0,
-      'tittle2': 'Estadística general de mesas x puesto de votación en campaña',
-      'series2': 2,
-      'label2': 1
+    //   'tittle2': 'Estadística general de mesas x puesto de votación en campaña',
+    //   'series2': 2,
+    //   'label2': 1
     },
     {
       'id': 4,

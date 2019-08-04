@@ -220,6 +220,24 @@ export class ChartsComponent implements OnInit {
 							chartData.push(votosCandidatos[candidato]);
 						});
 					break;
+					case 'getReporteVotosIndependientes':
+
+					break;
+					case 'getReporteGeneral':
+						let localidadesGeneral: any = {};
+						this.lista.forEach((row: any) => {
+							if (localidadesGeneral[row['Localidad']['nombre']]) localidadesGeneral[row['Localidad']['nombre']] += row['Numero de Votos'];
+							else localidadesGeneral[row['Localidad']['nombre']] = row['Numero de Votos'];
+							row['Localidad'] = row['Localidad']['nombre'];
+							row['Puesto de votación'] = row['Puesto de Votancion']['nombre'];
+							row['Mesa'] = row['Mesa']['nombre'];
+							row['N° votos'] = row['Numero de Votos'];
+						});
+						Object.keys(localidadesGeneral).forEach((localidad: string) => {
+							this.barChartLabels.push(localidad);
+							chartData.push(localidadesGeneral[localidad]);
+						});
+					break;
 				}
 				this.barChartData = [
 					{ data: chartData, label: 'Series A' }
