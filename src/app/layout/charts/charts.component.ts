@@ -238,6 +238,27 @@ export class ChartsComponent implements OnInit {
 							chartData.push(localidadesGeneral[localidad]);
 						});
 					break;
+					case 'P.V. X Lider':
+
+					break;
+					// P.V. X Lider
+					case 'getReporteCumplimientoLider':
+
+					break;
+					// % Cumplimiento X Localidad
+					case 'getReporteVotosLocalidad':
+							let localidadVotos: any = {};
+							this.lista.forEach((row: any) => {
+								if (localidadVotos[row['locacion']['nombre']]) localidadVotos[row['locacion']['nombre']] += row['votantes'].length;
+								else localidadVotos[row['locacion']['nombre']] = row['votantes'].length;
+								row['Localidad'] = row['locacion']['nombre'];
+								row['N° votos'] = row['votantes'].length;
+							});
+							Object.keys(localidadVotos).forEach((localidad: string) => {
+								this.barChartLabels.push(localidad);
+								chartData.push(localidadVotos[localidad]);
+							});
+					break;
 				}
 				this.barChartData = [
 					{ data: chartData, label: 'Series A' }

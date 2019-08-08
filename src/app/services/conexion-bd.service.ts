@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { DataSharingService } from './data-sharing.service';
 import { User } from '../models/user';
 
-export const URL = 'http://206.189.202.242:3000';
+export const URL = ''; //'http://206.189.202.242:3000';
 
 export function pred(token: string) {
   /*
