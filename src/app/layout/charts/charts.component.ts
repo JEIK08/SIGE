@@ -27,7 +27,8 @@ export class ChartsComponent implements OnInit {
     public secondChart = false;
     public dateSecondChart;
     public lista; // = new Array();
-    public reportSelect: any;
+	public reportSelect: any;
+	public showChart: boolean;
 
 
     // bar chart
@@ -239,11 +240,17 @@ export class ChartsComponent implements OnInit {
 						});
 					break;
 					case 'P.V. X Lider':
-
+						
 					break;
-					// P.V. X Lider
 					case 'getReporteCumplimientoLider':
-
+						this.lista.forEach((row: any) => {
+							this.getFullName(row['Lider']);
+							row['Localidad'] = row['Localidad']['nombre'];
+							row['Líder'] = row['Lider']['fullName'];
+							row['% cumplimiento'] = (row['Lider']['votosEstipulados'] == 0 ? 0 : row['Lider']['votosAsociados'] / row['Lider']['votosEstipulados']) * 100;
+							this.barChartLabels.push(row['Líder']);
+							chartData.push(row['% cumplimiento']);
+						});
 					break;
 					// % Cumplimiento X Localidad
 					case 'getReporteVotosLocalidad':
@@ -263,6 +270,8 @@ export class ChartsComponent implements OnInit {
 				this.barChartData = [
 					{ data: chartData, label: 'Series A' }
 				];
+				this.showChart = false;
+				setTimeout(() => this.showChart = true, 500);
             },
             err => {
                 console.log(err.message);
