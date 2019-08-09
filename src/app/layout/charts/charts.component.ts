@@ -252,7 +252,14 @@ export class ChartsComponent implements OnInit {
 							chartData.push(row['% cumplimiento']);
 						});
 					break;
-					// % Cumplimiento X Localidad
+					case 'getReporteCumplimientoLocalidad':
+						this.lista.forEach((row: any) => {
+							this.barChartLabels.push(row['locacion']['nombre']);
+							chartData.push(row['cumplimiento']);
+							row['Localidad'] = row['locacion']['nombre'];
+							row['% cumplimiento'] = row['cumplimiento'];
+						});
+					break;
 					case 'getReporteVotosLocalidad':
 							let localidadVotos: any = {};
 							this.lista.forEach((row: any) => {

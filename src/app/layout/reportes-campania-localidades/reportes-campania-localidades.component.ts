@@ -62,7 +62,7 @@ export class ReportesCampaniaLocalidadesComponent implements OnInit {
     },
     {
       'id': 6,
-      'route': '',
+      'route': 'getReporteCumplimientoLocalidad',
       'name': '% Cumplimiento x localidad',
       'tittle': 'Estadística de % cumplimiento por localidad',
       'dates': ['Localidad', '% cumplimiento'],
