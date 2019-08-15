@@ -239,8 +239,26 @@ export class ChartsComponent implements OnInit {
 							chartData.push(localidadesGeneral[localidad]);
 						});
 					break;
-					case 'P.V. X Lider':
-						
+					case 'getReportePVLider':
+						let newResponse: any[] = [];
+						this.lista.forEach((localidad: any) => {
+							if (!localidad['lider']) localidad['lider'] = { nombre1: 'Sin', apellido1: 'líder' };
+							this.barChartLabels.push(localidad['object']['nombre']);
+							this.getFullName(localidad['lider']);
+							chartData.push(localidad['votos']);
+							localidad['puesto'].forEach((puesto: any) => {
+								puesto['mesa'].forEach((mesa: any) => {
+									newResponse.push({
+										'Localidad': localidad['object']['nombre'],
+										'Líder': localidad['lider']['fullName'],
+										'Puesto de votación': puesto['object']['nombre'],
+										'Mesa': mesa['object']['nombre'],
+										'N° votos': mesa['votos'],
+									});
+								});
+							});
+						});
+						this.lista = newResponse;
 					break;
 					case 'getReporteCumplimientoLider':
 						this.lista.forEach((row: any) => {

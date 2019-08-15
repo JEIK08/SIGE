@@ -41,15 +41,15 @@ export class ReportesCampaniaLocalidadesComponent implements OnInit {
     },
     {
       'id': 4,
-      'route': '',
+      'route': 'getReportePVLider',
       'name': 'P.V. x líder',
       'tittle': 'Estadísticas de votos de líder x puesto de votación',
       'dates': ['Localidad', 'Líder', 'Puesto de votación', 'Mesa', 'N° votos'],
       'series': 1,
       'label': 2,
-      'tittle2': 'Estadísticas de votos x líder',
-      'series2': 1,
-      'label2': 0
+    //   'tittle2': 'Estadísticas de votos x líder',
+    //   'series2': 1,
+    //   'label2': 0
     },
     {
       'id': 5,
