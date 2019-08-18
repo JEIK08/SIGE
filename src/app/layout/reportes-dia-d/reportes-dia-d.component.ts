@@ -12,10 +12,10 @@ export class ReportesDiaDComponent implements OnInit {
   public dateReport = [
     {
       'id': 1,
-      'route': '',
+      'route': 'getReporteDiaD?reporte=pvgeneral',
       'name': 'Reporte general P.V.',
       'tittle': 'Estadística general de puestos de votación (Pos-campaña)',
-      'dates': ['Localidad', 'Puesto de votación', 'Mesa', 'N° votos'],
+      'dates': ['Localidad', 'Puesto de votación',/*  'Mesa', */ 'N° votos'],
       'series': 1,
       'label': 0
     },
