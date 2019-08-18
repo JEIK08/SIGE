@@ -21,7 +21,7 @@ export class ReportesDiaDComponent implements OnInit {
     },
     {
       'id': 2,
-      'route': '',
+      'route': 'getReporteDiaD?reporte=votosmesa',
       'name': 'Votos x mesa',
       'tittle': 'Estadistica general de mesas x puestos de votación (Pos-campaña)',
       'dates': ['Localidad', 'Puesto de votación', 'Mesa', 'N° votos'],

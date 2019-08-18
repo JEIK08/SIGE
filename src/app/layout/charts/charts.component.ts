@@ -294,19 +294,42 @@ export class ChartsComponent implements OnInit {
 
 					// Reportes del día D
 					case 'getReporteDiaD?reporte=pvgeneral':
-						let localidadesGeneralD: any = {}, votosLocalidad: number;
+						let votosLocalidad: number, nuevaListaLocalidades: any[] = [];
 						this.lista.forEach((row: any) => {
 							this.barChartLabels.push(row['localidad']);
 							votosLocalidad = 0;
 							row['puesto'].forEach((puesto: any) => {
 								votosLocalidad += puesto['votos'];
-								row['Localidad'] = row['localidad'];
-								row['Puesto de votación'] = puesto['nombre'];
-								// row['Mesa'] = ;
-								row['N° votos'] = puesto['votos'];
+								nuevaListaLocalidades.push({
+									'Localidad': row['localidad'],
+									'Puesto de votación': puesto['nombre'],
+									// Mesa
+									'N° votos': puesto['votos']
+								});
 							});
 							chartData.push(votosLocalidad);
 						});
+						this.lista = nuevaListaLocalidades;
+					break;
+					case 'getReporteDiaD?reporte=votosmesa':
+						let votosPuesto: number, nuevaListaMesas: any[] = [];
+						this.lista.forEach((localidad: any) => {
+							localidad['puesto'].forEach((puesto: any) => {
+								votosPuesto = 0;
+								puesto['mesa'].forEach((mesa: any) => {
+									votosPuesto += mesa['votos'];
+									nuevaListaMesas.push({
+										'Localidad': localidad['localidad'],
+										'Puesto de votación': puesto['nombre'],
+										'Mesa': mesa['nombre'],
+										'N° votos': mesa['votos']
+									});
+								});
+								this.barChartLabels.push(puesto['nombre']);
+								chartData.push(votosPuesto);
+							});
+						});
+						this.lista = nuevaListaMesas;
 					break;
 				}
 				this.barChartData = [
