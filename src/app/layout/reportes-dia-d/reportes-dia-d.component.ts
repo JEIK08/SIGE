@@ -30,10 +30,10 @@ export class ReportesDiaDComponent implements OnInit {
     },
     {
       'id': 3,
-      'route': '',
+      'route': 'getReporteDiaD?reporte=votoslocalidad',
       'name': 'Votos x localidades',
       'tittle': 'Estadistica general por localidades (Pos-campaña)',
-      'dates': ['Localidad', 'Puesto de votación', 'Mesa', 'N° votos'],
+      'dates': ['Localidad',/*  'Puesto de votación', 'Mesa', */ 'N° votos'],
       'series': null,
       'label': 0
     }

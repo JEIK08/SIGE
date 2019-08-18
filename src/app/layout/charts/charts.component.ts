@@ -331,6 +331,14 @@ export class ChartsComponent implements OnInit {
 						});
 						this.lista = nuevaListaMesas;
 					break;
+					case 'getReporteDiaD?reporte=votoslocalidad':
+						this.lista.forEach((localidad: any) => {
+							localidad['Localidad'] = localidad['nombre'];
+							localidad['N° votos'] = localidad['votos'];
+							this.barChartLabels.push(localidad['nombre']);
+							chartData.push(localidad['votos']);
+						});
+					break;
 				}
 				this.barChartData = [
 					{ data: chartData, label: 'Series A' }
